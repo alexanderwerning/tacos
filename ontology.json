@@ -1,0 +1,227 @@
+{
+    "Human Sounds": {
+        "Speech": [
+            "speech", "speaking", "talking", "conversation",
+            "spoken word", "dialogue"
+        ],
+        "Cough": [
+            "cough", "human cough", "coughing fit"
+        ],
+        "Sneeze": [
+            "sneeze", "sneezing"
+        ],
+        "Laughter": [
+            "laughter", "laughing", "giggle", "chuckle", "cackle"
+        ],
+        "Crying": [
+            "crying", "sobbing", "weeping", "wailing",
+            "baby crying", "infant crying"
+        ],
+        "Shout": [
+            "shout", "yelling", "angry shout", "exclamation"
+        ],
+        "Hiccup": [
+            "hiccup", "hiccough"
+        ],
+        "Snoring": [
+            "snoring", "snore", "heavy snoring"
+        ],
+        "Footsteps": [
+            "footsteps", "walking steps", "running steps",
+            "footstep on wood", "footstep on concrete"
+        ],
+        "Clapping": [
+            "clapping", "applause", "crowd clapping"
+        ]
+    },
+
+    "Animals": {
+        "Dog Bark": [
+            "dog bark", "barking dog", "puppy barking",
+            "dog woof", "dog growl"
+        ],
+        "Cat Meow": [
+            "cat meow", "cat meowing", "kitten meow",
+            "cat purr"
+        ],
+        "Sheep_Goat Bleat": [
+            "sheep bleat", "goat bleat", "sheep baa", "goat sound"
+        ],
+        "Cow Moo": [
+            "cow moo", "cattle mooing"
+        ],
+        "Pig Oink": [
+            "pig oink", "pig grunting", "hog oink"
+        ],
+        "Horse Neigh": [
+            "horse neigh", "horse whinny", "stallion neighing"
+        ],
+        "Rooster Crow": [
+            "rooster crow", "cock-a-doodle-doo", "chicken crow"
+        ],
+        "Bird Chirp": [
+            "bird chirp", "bird song", "bird call",
+            "bird tweeting", "bird singing"
+        ],
+        "Insect Buzz": [
+            "insect buzz", "bee buzzing", "mosquito buzz",
+            "fly buzzing"
+        ]
+    },
+
+    "Music_Instruments": {
+        "Singing": [
+            "singing", "vocal performance", "song", "solo singing",
+            "vocal melody", "choir singing", "humming"
+        ],
+        "Guitar": [
+            "guitar strum", "guitar chord", "acoustic guitar",
+            "electric guitar", "guitar solo", "rock guitar"
+        ],
+        "Piano": [
+            "piano solo", "piano chord", "classical piano",
+            "jazz piano", "upright piano", "grand piano"
+        ],
+        "Violin": [
+            "violin solo", "fiddle", "violin bowing",
+            "violin string", "classical violin", "orchestral violin"
+        ],
+        "Drums": [
+            "drum kit", "drum solo", "drum beat", "snare drum",
+            "bass drum", "drum loop"
+        ],
+        "Trumpet": [
+            "trumpet solo", "brass trumpet", "jazz trumpet",
+            "trumpet fanfare"
+        ],
+        "Saxophone": [
+            "saxophone", "sax solo", "jazz sax", "alto sax",
+            "tenor sax"
+        ],
+        "Bell": [
+            "bell ringing", "church bell", "handbell",
+            "mechanical bell", "wind chime"
+        ],
+        "Cowbell": [
+            "cowbell", "cowbell hit", "cowbell percussion"
+        ]
+    },
+
+    "Transportation": {
+        "Car": [
+            "car engine", "car passing by", "car door slam",
+            "car driving", "car horn"
+        ],
+        "Truck": [
+            "truck engine", "diesel truck", "heavy truck",
+            "truck horn"
+        ],
+        "Motorcycle": [
+            "motorcycle rev", "motorbike engine", "motorcycle pass by"
+        ],
+        "Bicycle": [
+            "bicycle bell", "bike riding", "bike chain",
+            "bicycle pedal"
+        ],
+        "Bus": [
+            "bus engine", "bus stopping", "bus interior",
+            "public transport bus"
+        ],
+        "Train": [
+            "train horn", "train passing", "train wheels squealing",
+            "railroad"
+        ],
+        "Ship_Boat": [
+            "ship horn", "boat engine", "ferry", "sailboat"
+        ],
+        "Helicopter": [
+            "helicopter", "chopper flying", "helicopter rotors"
+        ],
+        "Airplane": [
+            "airplane takeoff", "jet engine", "airplane landing",
+            "aircraft passing"
+        ]
+    },
+
+    "Machinery_Industrial": {
+        "Chainsaw": [
+            "chainsaw", "chainsaw cutting", "chainsaw wood"
+        ],
+        "Power Drill": [
+            "drill", "power drill", "electric drill"
+        ],
+        "Hammer": [
+            "hammering", "hammer hit", "nail hammering"
+        ],
+        "Jackhammer": [
+            "jackhammer", "pneumatic drill", "construction drilling"
+        ],
+        "Power Saw": [
+            "circular saw", "table saw", "power saw"
+        ],
+        "Lawn Mower": [
+            "lawn mower", "grass cutting", "mower engine"
+        ],
+        "Vacuum Cleaner": [
+            "vacuum cleaner", "vacuuming", "hoover"
+        ],
+        "Sewing Machine": [
+            "sewing machine", "machine sewing", "stitching machine"
+        ],
+        "Washing Machine": [
+            "washing machine", "laundry machine", "washing cycle"
+        ]
+    },
+
+    "Alarms_Signals": {
+        "Alarm": [
+            "alarm", "alarm beep", "alarm ringing"
+        ],
+        "Siren": [
+            "siren", "police siren", "ambulance siren",
+            "emergency siren"
+        ],
+        "Fire Alarm": [
+            "fire alarm", "fire alarm ringing", "smoke alarm"
+        ],
+        "Horn Honk": [
+            "car horn", "truck horn", "horn honking", "vehicle horn"
+        ],
+        "Beep_Bleep": [
+            "beep", "bleep", "electronic beep",
+            "digital beep"
+        ],
+        "Doorbell": [
+            "doorbell", "door chime", "ring doorbell"
+        ]
+    },
+
+    "Environmental": {
+        "Rain": [
+            "rain", "rainfall", "heavy rain", "light rain",
+            "raindrops"
+        ],
+        "Thunder": [
+            "thunder", "thunderstorm", "lightning strike"
+        ],
+        "Wind": [
+            "wind", "wind gust", "strong wind",
+            "howling wind"
+        ],
+        "Fire": [
+            "fire crackling", "campfire", "fireplace",
+            "flames"
+        ],
+        "Waves": [
+            "ocean waves", "sea waves", "surf",
+            "wave crashing"
+        ],
+        "Stream_River": [
+            "stream flow", "river flowing", "water stream",
+            "creek"
+        ],
+        "Drip": [
+            "water drip", "dripping faucet", "water droplet"
+        ]
+    }
+}

@@ -1,4 +1,109 @@
-# TACOS
-Temporally-aligned Audio CaptiOnS for Language-Audio Pretraining
+# TACOS – Temporally-Aligned Audio Captions for Audio-Language Pretraining
 
-This repository will be available soon.
+This repository implements the framework described in the paper **“TACOS: Temporally-aligned Audio CaptiOnS for Language-Audio Pretraining”**. 
+
+TACOS is a dataset with **strong captions**, i.e., textual description of acoustic events with temporal onset and offset boundaries.
+
+
+---
+
+## Overview
+
+Traditional audio-language models rely on **global (clip-level) captions**, which occasionally provide a rough temporal position of acoustic events.
+
+TACOS solves this by providing:
+- **12,358** audio recordings annotated with
+- **47,748 temporally-aligned captions** linked to specific regions
+which can be used to provide stronger supervision during text-audio pretraining.
+
+---
+
+## Model Architecture
+
+| Component        | Description |
+|------------------|-------------|
+| Audio Encoder    | ASiT (Audio Spectrogram Vision Transformer) |
+| Text Encoder     | RoBERTa base |
+
+---
+
+## Quick Start
+
+### Installation
+
+Prerequisites
+- linux (tested on Ubuntu 24.04)
+- [conda](https://www.anaconda.com/docs/getting-started/miniconda/install), e.g., [Miniconda3-latest-Linux-x86_64.sh](https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh)
+
+1. Clone this repository.
+
+```
+clone git@github.com:OptimusPrimus/tacos.git
+```
+
+2. Create and activate a conda environment with Python 3.11:
+
+```
+conda create -n d25_t6 python=3.11
+conda activate d25_t6
+```
+
+3. Install 7z
+
+```
+# (on linux)
+sudo apt install p7zip-full
+# (on linux)
+conda install -c conda-forge p7zip
+# (on windows)
+conda install -c conda-forge 7zip
+```
+
+
+4. Install a [PyTorch](https://pytorch.org/get-started/previous-versions/) version that suits your system. For example:
+
+```
+# for cuda >= 12.1 (check with nvidia-smi)
+pip3 install torch torchvision torchaudio
+# for cuda 11.8
+pip3 install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
+# for otther versions see: https://pytorch.org/get-started/locally/
+```
+
+5. Install other dependencies:
+```
+pip3 install -r requirements.txt
+```
+
+6. If you have not used [Weights and Biases](https://wandb.ai/site) for logging before, you can create a free account. On your
+machine, run ```wandb login``` and copy your API key from [this](https://wandb.ai/authorize) link to the command line.
+
+7. Download TACOS Dataset
+
+The dataset is available on Zenodo:
+- [https://zenodo.org/records/15379789](https://zenodo.org/records/15379789)
+- place it into the folder called `data` in the main directory
+
+---
+
+### Example Training Command
+
+Pre-Training
+```bash
+python srv.train \
+  --data_path=data \
+  --strong_weight=0.0 \
+  --weak_weight=1.0
+```
+Strong Fine-Tuning
+```bash
+python srv.train \
+  --no-clotho \
+  --tacos \
+  --data_path=data \
+  --strong_weight=1.0 \
+  --weak_weight=0.0 \
+  --test_on_audioset \
+  --test_on_audioset_full \
+  --load_ckpt_path=PATH_TO_PRETRAINING_CHECKPOINT.ckpt
+```
