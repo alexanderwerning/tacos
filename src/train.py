@@ -2,9 +2,7 @@ import warnings
 
 from src.datasets.audioset import AudioSetStrong
 
-
 warnings.filterwarnings("ignore", category=UserWarning, module="torch.functional")
-warnings.filterwarnings("ignore", category=FutureWarning, module="hear21passt.models.preprocess")
 
 import os
 from typing import Union, List, Mapping
@@ -16,10 +14,10 @@ from pytorch_lightning.loggers import WandbLogger
 from pytorch_lightning.callbacks import ModelCheckpoint
 from pytorch_lightning import seed_everything
 
-from aac_datasets import Clotho, WavCaps, AudioCaps
+from aac_datasets import Clotho
 from src.datasets.aac_wrapper import AACWrapper
 from torch.utils.data import DataLoader, WeightedRandomSampler
-from src.datasets.download_datasets import download_clotho, download_audiocaps, download_wavcaps_mp3
+from src.datasets.download_datasets import download_clotho
 from src.datasets.tacos import Tacos
 from src.datasets.utils import exclude_broken_files, exclude_forbidden_files
 from src.datasets.batch_collate import CustomCollate
@@ -181,13 +179,9 @@ def get_args() -> dict:
                         help='Include Clotho in the training or not.')
     parser.add_argument('--tacos', default=False, action=argparse.BooleanOptionalAction,
                         help='Include Tacos in the training or not.')
-    parser.add_argument('--wavcaps', default=False, action=argparse.BooleanOptionalAction, help='Include WavCaps in the training or not.')
-    parser.add_argument('--audiocaps', default=False, action=argparse.BooleanOptionalAction, help='Include AudioCaps in the training or not.')
-    parser.add_argument('--ablate_clean_setup', default=True, action=argparse.BooleanOptionalAction, help='Include ClothoV2.1 eval, test in the training or not.')
-
     # Paths
     parser.add_argument('--data_path', type=str, default='data', help='Path to dataset; dataset will be downloaded into this folder.')
-    parser.add_argument('--cache_path', type=str, default='/tmp/paul', help='Path to where h5py files will be stores.')
+    parser.add_argument('--cache_path', type=str, default='.', help='Path to where h5py files will be stores.')
     parser.add_argument('--checkpoints_path', type=str, default='checkpoints', help='Path to save checkpoints to.')
 
     # run training / test
@@ -231,10 +225,6 @@ if __name__ == '__main__':
     # AudioCAps
     if args['audiocaps']:
         download_audiocaps(args["data_path"])
-    # WavCaps
-    if args['wavcaps']:
-        download_wavcaps_mp3(args["data_path"])
-        # download_wavcaps(args["data_path"], args["huggingface_cache_path"])
 
     import secrets
     # set a seed to make experiments reproducible
@@ -281,33 +271,6 @@ if __name__ == '__main__':
             tacos = Tacos(args["data_path"])
             if args['preload_audios']: tacos.preload_audios(n_workers=args["n_workers"]+1, show_progress=True, cache_path=args["cache_path"])
             train_ds.append(tacos)
-
-        # AudioSet
-        if args['audiocaps']:
-            ac = AACWrapper(
-                AudioCaps(subset="train", root=args["data_path"], download=True, download_audio=False, audio_format='mp3')
-            )
-            if args['preload_audios']: ac.preload_audios(n_workers=args["n_workers"]+1, show_progress=True, cache_path=args["cache_path"])
-            train_ds.append(ac)
-
-        # WavCaos
-        if args['wavcaps']:
-            # load the subsets
-            wc_f = AACWrapper(WavCaps(subset="freesound", root=args["data_path"]))
-            if args['preload_audios']: wc_f.preload_audios(n_workers=args["n_workers"]+1, show_progress=True, cache_path=args["cache_path"])
-            wc_f = exclude_forbidden_files(wc_f)
-
-            wc_b = AACWrapper(WavCaps(subset="bbc", root=args["data_path"]))
-            if args['preload_audios']: wc_b.preload_audios(n_workers=args["n_workers"]+1, show_progress=True, cache_path=args["cache_path"])
-
-            wc_s = AACWrapper(WavCaps(subset="soundbible", root=args["data_path"]))
-            if args['preload_audios']: wc_s.preload_audios(n_workers=args["n_workers"]+1, show_progress=True, cache_path=args["cache_path"])
-
-            wc_a = AACWrapper(WavCaps(subset="audioset_no_audiocaps" if not args["ablate_clean_setup"] else "audioset", root=args["data_path"]))
-            if args['preload_audios']: wc_a.preload_audios(n_workers=args["n_workers"]+1, show_progress=True, cache_path=args["cache_path"])
-            wc_a = exclude_broken_files(wc_a)
-
-            train_ds.extend([wc_f, wc_b, wc_s, wc_a])
 
         # concatenate
         if len(train_ds) > 1:

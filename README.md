@@ -66,13 +66,14 @@ pip3 install -r requirements.txt
 6. If you have not used [Weights and Biases](https://wandb.ai/site) for logging before, you can create a free account. On your
 machine, run ```wandb login``` and copy your API key from [this](https://wandb.ai/authorize) link to the command line.
 
-7. Download TACOS Dataset
-
+7. Download TACOS Dataset.
 The dataset is available on Zenodo:
 - [https://zenodo.org/records/15379789](https://zenodo.org/records/15379789)
 - place it into the folder called `data` in the main directory
 
-
+8. Download AudioSet Stong
+- AudioSet recordings are not publicly available due to licensing issues.
+- A download script will be provided upon request to paul.primus@jku.at. 
 
 ## Example Training Command
 
