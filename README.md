@@ -14,9 +14,8 @@ TACOS solves this by providing:
 - **47,748 temporally-aligned captions** linked to specific regions
 which can be used to provide stronger supervision during text-audio pretraining.
 
-The following figure illustrates the difference between weak and strong captions:
+The following figure illustrates the difference between weak captions (left) and strong captions (right):
 <img src="figures/weak_vs_strong.png">
-
 
 ## Quick Start to Run Experiments
 
