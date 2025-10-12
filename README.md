@@ -12,7 +12,7 @@ Traditional audio-language models rely on **global (clip-level) captions**, whic
 TACOS solves this by providing:
 - **12,358** audio recordings annotated with
 - **47,748 temporally-aligned captions** linked to specific regions
-The regions on and offsets can be used to provide stronger supervision during text-audio pretraining.
+The region's on- and offsets can be used to provide stronger supervision during text-audio pretraining.
 
 The following figure illustrates the difference between weak captions (left) and strong captions (right):
 <img src="figures/weak_vs_strong.png">
