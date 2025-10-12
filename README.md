@@ -2,9 +2,9 @@
 
 This repository contains implementation detail for the framework described in the paper **[“TACOS: Temporally-aligned Audio CaptiOnS for Language-Audio Pretraining”](https://arxiv.org/pdf/2505.07609)**. 
 
-TACOS is a dataset with **strong captions**, i.e., textual description of acoustic events with temporal onset and offset boundaries.
+TACOS is a dataset with **strong captions**, i.e., textual description of acoustic events with their corresponding temporal onsets and offsets.
 
-
+The dataset can be downloaded via Zenodo: [https://zenodo.org/records/15379789](https://zenodo.org/records/15379789)
 ## Overview
 
 Traditional audio-language models rely on **global (clip-level) captions**, which occasionally provide a rough temporal position of acoustic events.
@@ -12,7 +12,7 @@ Traditional audio-language models rely on **global (clip-level) captions**, whic
 TACOS solves this by providing:
 - **12,358** audio recordings annotated with
 - **47,748 temporally-aligned captions** linked to specific regions
-which can be used to provide stronger supervision during text-audio pretraining.
+The regions on and offsets can be used to provide stronger supervision during text-audio pretraining.
 
 The following figure illustrates the difference between weak captions (left) and strong captions (right):
 <img src="figures/weak_vs_strong.png">
@@ -98,3 +98,9 @@ python srv.train \
   --test_on_audioset_full \
   --load_ckpt_path=PATH_TO_PRETRAINING_CHECKPOINT.ckpt
 ```
+
+### Citation
+
+If you use our dataset, please cite our WASPAA paper:
+- TACOS: Temporally-aligned Audio CaptiOnS for Language-Audio Pretraining
+
