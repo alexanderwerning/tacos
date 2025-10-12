@@ -1,4 +1,4 @@
-# TACOS – Temporally-Aligned Audio Captions for Audio-Language Pretraining
+# TACOS: Temporally-Aligned Audio Captions for Audio-Language Pretraining
 
 This repository contains implementation detail for the framework described in the paper **[“TACOS: Temporally-aligned Audio CaptiOnS for Language-Audio Pretraining”](https://arxiv.org/pdf/2505.07609)**. 
 
