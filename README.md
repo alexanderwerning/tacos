@@ -1,11 +1,9 @@
 # TACOS – Temporally-Aligned Audio Captions for Audio-Language Pretraining
 
-This repository implements the framework described in the paper **“TACOS: Temporally-aligned Audio CaptiOnS for Language-Audio Pretraining”**. 
+This repository contains implementation detail for the framework described in the paper **[“TACOS: Temporally-aligned Audio CaptiOnS for Language-Audio Pretraining”](https://arxiv.org/pdf/2505.07609)**. 
 
 TACOS is a dataset with **strong captions**, i.e., textual description of acoustic events with temporal onset and offset boundaries.
 
-
----
 
 ## Overview
 
@@ -16,16 +14,6 @@ TACOS solves this by providing:
 - **47,748 temporally-aligned captions** linked to specific regions
 which can be used to provide stronger supervision during text-audio pretraining.
 
----
-
-## Model Architecture
-
-| Component        | Description |
-|------------------|-------------|
-| Audio Encoder    | ASiT (Audio Spectrogram Vision Transformer) |
-| Text Encoder     | RoBERTa base |
-
----
 
 ## Quick Start
 
@@ -84,18 +72,18 @@ The dataset is available on Zenodo:
 - [https://zenodo.org/records/15379789](https://zenodo.org/records/15379789)
 - place it into the folder called `data` in the main directory
 
----
 
-### Example Training Command
 
-Pre-Training
+## Example Training Command
+
+Pre-Training on Clotho
 ```bash
 python srv.train \
   --data_path=data \
   --strong_weight=0.0 \
   --weak_weight=1.0
 ```
-Strong Fine-Tuning
+Strong Fine-Tuning on TACOS
 ```bash
 python srv.train \
   --no-clotho \
