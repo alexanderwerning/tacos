@@ -177,7 +177,6 @@ class PredictionsWrapper(nn.Module):
     def forward(self, x, duration=None):
         # base model is expected to output a sequence (see Eq. (1) in paper)
         # (batch size x sequence length x embedding dimension)
-        from d25_t6.models.wrapper import process_spectrogram_with_segments
 
         x = process_spectrogram_with_segments(x, self.model, self.window_length, self.window_length, self.hop_size)
 
