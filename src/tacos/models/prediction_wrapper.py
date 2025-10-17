@@ -4,9 +4,9 @@ import torch
 import torch.nn as nn
 from torch.hub import download_url_to_file
 
-from src.models.config import RESOURCES_FOLDER, CHECKPOINT_URLS
-from src.models.seq_models import BidirectionalLSTM, BidirectionalGRU
-from src.models.wrapper import process_spectrogram_with_segments
+from tacos.models.config import RESOURCES_FOLDER, CHECKPOINT_URLS
+from tacos.models.seq_models import BidirectionalLSTM, BidirectionalGRU
+from tacos.models.wrapper import process_spectrogram_with_segments
 
 
 class PredictionsWrapper(nn.Module):
@@ -97,6 +97,7 @@ class PredictionsWrapper(nn.Module):
     def load_checkpoint(self, checkpoint):
         ckpt_file = os.path.join(RESOURCES_FOLDER, checkpoint + ".pt")
         if not os.path.exists(ckpt_file):
+            os.makedirs(RESOURCES_FOLDER, exist_ok=True)
             download_url_to_file(CHECKPOINT_URLS[checkpoint], ckpt_file)
         state_dict = torch.load(ckpt_file, map_location="cpu", weights_only=True)
 

@@ -1,6 +1,6 @@
 import warnings
 
-from src.datasets.audioset import AudioSetStrong
+from tacos.datasets.audioset import AudioSetStrong
 
 warnings.filterwarnings("ignore", category=UserWarning, module="torch.functional")
 
@@ -15,15 +15,15 @@ from pytorch_lightning.callbacks import ModelCheckpoint
 from pytorch_lightning import seed_everything
 
 from aac_datasets import Clotho
-from src.datasets.aac_wrapper import AACWrapper
+from tacos.datasets.aac_wrapper import AACWrapper
 from torch.utils.data import DataLoader, WeightedRandomSampler
-from src.datasets.download_datasets import download_clotho
-from src.datasets.tacos import Tacos
-from src.datasets.utils import exclude_broken_files, exclude_forbidden_files
-from src.datasets.batch_collate import CustomCollate
+from tacos.datasets.download_datasets import download_clotho
+from tacos.datasets.tacos import Tacos
+from tacos.datasets.utils import exclude_broken_files, exclude_forbidden_files
+from tacos.datasets.batch_collate import CustomCollate
 
-from src.retrieval_module import AudioRetrievalModel
-from src.supervised_module import SupervisedModel
+from tacos.retrieval_module import AudioRetrievalModel
+from tacos.supervised_module import SupervisedModel
 
 from collections import Counter
 
@@ -38,14 +38,14 @@ def train(
     Trains the AudioRetrievalModel using provided datasets, logger, and configuration arguments.
 
     Args:
-        model (src.retrieval_module.AudioRetrievalModel): The model to be trained.
+        model (tacos.retrieval_module.AudioRetrievalModel): The model to be trained.
         train_ds (torch.utils.data.Dataset): The training dataset.
         val_ds (torch.utils.data.Dataset): The validation dataset.
         logger (Union[None, WandbLogger]): The logger for tracking training metrics.
         args (dict): A dictionary of configuration arguments for training.
 
     Returns:
-        src.retrieval_module.AudioRetrievalModel: The trained model.
+        tacos.retrieval_module.AudioRetrievalModel: The trained model.
     """
     # get a unique experiment name for name of checkpoint
     if wandb.run is not None:
@@ -108,7 +108,7 @@ def test(
     Tests the trained AudioRetrievalModel on a given test dataset.
 
     Args:
-        model (src.retrieval_module.AudioRetrievalModel): The trained model to be evaluated.
+        model (tacos.retrieval_module.AudioRetrievalModel): The trained model to be evaluated.
         test_ds (torch.utils.data.Dataset): The test dataset.
         logger (Union[None, WandbLogger]): The logger for tracking test metrics.
         args (dict): A dictionary of configuration arguments for testing.
@@ -170,6 +170,7 @@ def get_args() -> dict:
     parser.add_argument('--min_lr', type=float, default=1e-7, help='Minimum learning rate')
     parser.add_argument('--initial_tau', type=float, default=0.05, help='Initial tau value')
     parser.add_argument('--tau_trainable', default=False, action=argparse.BooleanOptionalAction, help='Temperature parameter is trainable or not.')
+    parser.add_argument('--val_on_audioset', default=False, action=argparse.BooleanOptionalAction, help='Validate on AudioSet or not.')
 
     # RoBERTa parameters
     parser.add_argument('--roberta_base', default=True, action=argparse.BooleanOptionalAction,  help='Use Roberta base or large.')
@@ -179,6 +180,8 @@ def get_args() -> dict:
                         help='Include Clotho in the training or not.')
     parser.add_argument('--tacos', default=False, action=argparse.BooleanOptionalAction,
                         help='Include Tacos in the training or not.')
+    parser.add_argument('--audiocaps', default=False, action=argparse.BooleanOptionalAction,
+                        help='Include AudioCaps in the training or not.')
     # Paths
     parser.add_argument('--data_path', type=str, default='data', help='Path to dataset; dataset will be downloaded into this folder.')
     parser.add_argument('--cache_path', type=str, default='.', help='Path to where h5py files will be stores.')
@@ -254,7 +257,7 @@ if __name__ == '__main__':
     else:
         model = AudioRetrievalModel(**args)
 
-    from src.datasets.utils import CacheDataSet
+    from tacos.datasets.utils import CacheDataSet
     # train
     if args['train'] and not args['evaluate_supervised']:
         # get training ad validation data sets; add the resampling transformation
@@ -289,7 +292,7 @@ if __name__ == '__main__':
 
         # load test
         if args['test_on_audioset'] or args['evaluate_supervised']:
-            from src.datasets.audioset import AudioSetStrong
+            from tacos.datasets.audioset import AudioSetStrong
 
             test_ds = AudioSetStrong(reduce_classes=not args['test_on_audioset_full'], to_sentences=not args['evaluate_supervised'])
         else:

@@ -1,0 +1,25 @@
+[build-system]
+requires = ["hatchling >= 1.26"]
+build-backend = "hatchling.build"
+
+[project]
+name = "tacos"
+version = "0.0.1"
+authors = [
+  { name="Paul Primus", email="paul.primus@jku.at" },
+]
+description = "TACOS: Temporally-Aligned Audio Captions for Audio-Language Pretraining"
+readme = "README.md"
+requires-python = ">=3.6"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Environment :: GPU :: NVIDIA CUDA",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence"
+]
+license = "MIT"
+license-files = [
+    "LICENSE"
+]
+

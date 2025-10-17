@@ -4,7 +4,7 @@ import torch
 import shutil
 import multiprocessing
 from tqdm import tqdm
-from src.datasets.audio_loading import _custom_load_audio_mp3, custom_transform
+from tacos.datasets.audio_loading import _custom_load_audio_mp3, custom_transform
 
 
 

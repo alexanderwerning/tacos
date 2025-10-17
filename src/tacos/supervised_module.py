@@ -11,7 +11,7 @@ import pytorch_lightning as pl
 from transformers import RobertaTokenizer, RobertaModel
 from triton.language.semantic import reduction
 
-from src.models.sed import ASITSEDWrapper
+from tacos.models.sed import ASITSEDWrapper
 
 import torch
 import torch.nn.functional as F

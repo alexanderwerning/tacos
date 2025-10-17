@@ -1,6 +1,6 @@
-from src.models.asit.data_transformations import DataAugmentation
-from src.models.asit.vision_transformer import vit_base
-from src.models.transformer_wrapper import BaseModelWrapper
+from tacos.models.asit.data_transformations import DataAugmentation
+from tacos.models.asit.vision_transformer import vit_base
+from tacos.models.transformer_wrapper import BaseModelWrapper
 
 
 class ASiTWrapper(BaseModelWrapper):

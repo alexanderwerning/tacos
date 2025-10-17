@@ -1,6 +1,6 @@
 import pandas as pd
 import os
-from src.datasets.dataset import BaseDataset
+from tacos.datasets.dataset import BaseDataset
 from sklearn.model_selection import train_test_split
 
 class Tacos(BaseDataset):

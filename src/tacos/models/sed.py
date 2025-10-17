@@ -2,9 +2,9 @@ import torch
 
 import torchaudio.functional as F
 import torchaudio
-from src.models.prediction_wrapper import PredictionsWrapper
-from src.models.asit.ASIT_wrapper import ASiTWrapper
-from src.models.wrapper import CutInputIntoSegmentsWrapper
+from tacos.models.prediction_wrapper import PredictionsWrapper
+from tacos.models.asit.ASIT_wrapper import ASiTWrapper
+from tacos.models.wrapper import CutInputIntoSegmentsWrapper
 
 class ASITSEDWrapper(torch.nn.Module):
 

@@ -63,6 +63,8 @@ pip3 install torch torchvision torchaudio --index-url https://download.pytorch.o
 5. Install other dependencies:
 ```
 pip3 install -r requirements.txt
+
+CFLAGS='-O3 -march=native' pip install https://github.com/f0k/minimp3py/archive/master.zip
 ```
 
 6. If you have not used [Weights and Biases](https://wandb.ai/site) for logging before, you can create a free account. On your

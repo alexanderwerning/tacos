@@ -1,7 +1,7 @@
 import pandas as pd
 import os
-from src.datasets.dataset import BaseDataset
-from src.datasets.audioset_helpers import as_strong_eval_classes, as_strong_train_classes
+from tacos.datasets.dataset import BaseDataset
+from tacos.datasets.audioset_helpers import as_strong_eval_classes, as_strong_train_classes
 
 class AudioSetStrong(BaseDataset):
 

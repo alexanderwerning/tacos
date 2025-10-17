@@ -12,8 +12,8 @@ import argparse
 import pandas as pd
 from tqdm import tqdm
 
-from src.datasets.audio_loading import _pad_or_subsample_audio
-from src.retrieval_module import AudioRetrievalModel
+from tacos.datasets.audio_loading import _pad_or_subsample_audio
+from tacos.retrieval_module import AudioRetrievalModel
 
 
 def predict(
