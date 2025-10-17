@@ -63,7 +63,6 @@ pip3 install torch torchvision torchaudio --index-url https://download.pytorch.o
 5. Install other dependencies:
 ```
 pip3 install -r requirements.txt
-
 CFLAGS='-O3 -march=native' pip install https://github.com/f0k/minimp3py/archive/master.zip
 ```
 
@@ -83,14 +82,14 @@ The dataset is available on Zenodo:
 
 Pre-Training on Clotho
 ```bash
-python srv.train \
+python -m tacos.train \
   --data_path=data \
   --strong_weight=0.0 \
   --weak_weight=1.0
 ```
 Strong Fine-Tuning on TACOS
 ```bash
-python srv.train \
+python -m tacos.train \
   --no-clotho \
   --tacos \
   --data_path=data \
