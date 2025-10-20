@@ -1,20 +1,16 @@
 import copy
 import math
 import os
-import string
 from typing import Any
 import math
 
 import numpy as np
 import torch
 import pytorch_lightning as pl
-from transformers import RobertaTokenizer, RobertaModel
-from triton.language.semantic import reduction
 
 from tacos.models.sed import ASITSEDWrapper
 
 import torch
-import torch.nn.functional as F
 
 class SupervisedModel(pl.LightningModule):
 
@@ -86,8 +82,8 @@ class SupervisedModel(pl.LightningModule):
         import sed_scores_eval
         import pandas as pd
         import scipy
-        import src.datasets.audioset_helpers
-        from src.datasets.audioset import audioset_to_category, category_to_audioset
+        from tacos.datasets.audioset_helpers import as_strong_train_classes, as_strong_eval_classes
+        from tacos.datasets.audioset import category_to_audioset
 
         predictions = {
             fn: e for b in self.validation_outputs for fn, e in zip(b['fname'], b['audio_embeddings'])
@@ -111,13 +107,13 @@ class SupervisedModel(pl.LightningModule):
                 'offset': (np.arange(prediction.shape[0]) + 1) * 0.04
             }
             if self.kwargs["test_on_audioset_full"]:
-                for c in set(d25_t6.datasets.audioset_helpers.as_strong_eval_classes).intersection(set(d25_t6.datasets.audioset_helpers.as_strong_train_classes)):
-                    index = d25_t6.datasets.audioset_helpers.as_strong_train_classes.index(c)
+                for c in set(as_strong_eval_classes).intersection(set(as_strong_train_classes)):
+                    index = as_strong_train_classes.index(c)
                     p = (scipy.ndimage.filters.median_filter(prediction[:, index][:, None].cpu().numpy().astype(np.float32), (self.kwargs["median_filter"], 1)).sum(-1))
                     similarities[c] = p
             else:
                 for c in category_to_audioset.keys():
-                    indices = [d25_t6.datasets.audioset_helpers.as_strong_train_classes.index(ac) for ac in category_to_audioset[c]]
+                    indices = [as_strong_train_classes.index(ac) for ac in category_to_audioset[c]]
                     p = (scipy.ndimage.filters.median_filter(prediction[:, indices].cpu().numpy().astype(np.float32), (self.kwargs["median_filter"], 1)).sum(-1))
                     similarities[c] = p
 
