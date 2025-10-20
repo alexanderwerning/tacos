@@ -18,8 +18,3 @@ classifiers = [
     "Environment :: GPU :: NVIDIA CUDA",
     "Topic :: Scientific/Engineering :: Artificial Intelligence"
 ]
-license = "MIT"
-license-files = [
-    "LICENSE"
-]
-
