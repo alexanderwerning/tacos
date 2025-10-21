@@ -13,7 +13,7 @@ class Tacos(BaseDataset):
 
         self.metadata = pd.read_csv(os.path.join(self.path, 'metadata.csv'))
         self.metadata = self.metadata.set_index('filename')
-        self.annotations = pd.read_csv(os.path.join(self.path, 'annotations.csv'), index_col=0)
+        self.annotations = pd.read_csv(os.path.join(self.path, 'annotations_strong.csv'))
 
         test_size = 2000 / len(self.metadata)
 
@@ -33,7 +33,7 @@ class Tacos(BaseDataset):
         self.annotations = self.annotations[self.annotations["filename"].isin(self.metadata.index)]
 
         # all (file, annotator) pairs
-        self.unique_annotations = self.annotations[['filename', 'annotator']].drop_duplicates(subset=['filename', 'annotator'])
+        self.unique_annotations = self.annotations[['filename']].drop_duplicates(subset=['filename'])
         self.unique_annotations['fpath'] = self.unique_annotations['filename'].apply(lambda x: os.path.join(self.path , 'audio', x))
         self.unique_annotations['fname'] = self.unique_annotations['filename']
 
@@ -45,8 +45,17 @@ class Tacos(BaseDataset):
         self.annotations_weak["offset"] = self.annotations_weak["filename"].transform(lambda x: self.metadata.loc[x]["end_time_s"] - self.metadata.loc[x]["start_time_s"])
 
         self.unique_annotations = self.unique_annotations.merge(self.metadata.reset_index()[['filename', 'subclass']], on='filename')
-
-        forbidden_files = pd.read_csv("resources/dcase2025_task6_excluded_freesound_ids.csv")
+        excluded_ids_file = "resources/dcase2025_task6_excluded_freesound_ids.csv"
+        if not os.path.exists(excluded_ids_file):
+            if not os.path.exists("resources"):
+                os.makedirs("resources")
+            print("Downloading excluded freesound ids...")
+            import urllib.request
+            urllib.request.urlretrieve(
+                "https://raw.githubusercontent.com/saubhagyapandey27/enhanced_audio_retrieval_dcase25_submission/refs/heads/master/resources/dcase2025_task6_excluded_freesound_ids.csv",
+                excluded_ids_file
+            )
+        forbidden_files = pd.read_csv(excluded_ids_file)
         forbidden_files["filename"] = forbidden_files["sound_id"].transform(lambda x: x + '.mp3')
         self.unique_annotations = self.unique_annotations.loc[~self.unique_annotations["filename"].isin(forbidden_files["filename"])]
 
@@ -57,11 +66,10 @@ class Tacos(BaseDataset):
             return self.unique_annotations.iloc[index[0]][index[1]]
 
         fn = self.unique_annotations.iloc[index]['filename']
-        annotator = self.unique_annotations.iloc[index]['annotator']
 
-        annotations_weak = self.annotations_weak.loc[(self.annotations_weak["annotator"] == annotator) & (self.annotations_weak['filename'] == fn)]
+        annotations_weak = self.annotations_weak.loc[self.annotations_weak['filename'] == fn]
 
-        annotations_strong = self.annotations.loc[(self.annotations["annotator"] == annotator) & (self.annotations['filename'] == fn)]
+        annotations_strong = self.annotations.loc[self.annotations['filename'] == fn]
         # similarity_scores = self.similarity_scors.loc[(self.similarity_scors["annotator"] == annotator) & (self.similarity_scors['filename'] == fn)]
 
         # if len(similarity_scores) == 0:
@@ -110,7 +118,7 @@ class Tacos(BaseDataset):
 if __name__ == '__main__':
     from collections import Counter
     train_ds = Tacos('data')
-    # tc.preload_audios()
+    # train_ds.preload_audios()
 
     # balancing
     labels = train_ds[:, "subclass"].tolist()
@@ -126,7 +134,9 @@ if __name__ == '__main__':
     plt.tight_layout()
     plt.show()
 
-    for i in range(len(tc)):
+    print(len(train_ds))
+
+    for i in range(len(train_ds)):
         train_ds[i]
 
     pass
