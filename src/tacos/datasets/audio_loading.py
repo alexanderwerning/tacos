@@ -186,10 +186,10 @@ def _pad_or_subsample_audio(audio: torch.Tensor, max_length: int) -> torch.Tenso
 
     return audio
 
-import torchaudio
-import minimp3py
 
 def load_minimp3(fname, fpath, max_length=10.0, sample_rate=32000, random_sample_crop=True):
+    # load only if necessary
+    import minimp3py
 
     with open(fpath, 'rb') as f:
         data = f.read()
