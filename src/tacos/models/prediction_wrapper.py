@@ -41,11 +41,11 @@ class PredictionsWrapper(nn.Module):
                  seq_len=250,
                  window_length=1000,
                  hop_size=1000,
-                 seq_model_type=None,
+                 seq_model_type='rnn',  # None,
                  head_type="linear",
                  rnn_layers=2,
                  rnn_type="BiGRU",
-                 rnn_dim=2048,
+                 rnn_dim=768,  # 2048,
                  rnn_dropout=0.0
                  ):
         super(PredictionsWrapper, self).__init__()
