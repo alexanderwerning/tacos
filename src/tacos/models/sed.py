@@ -16,9 +16,9 @@ class ASITSEDWrapper(torch.nn.Module):
             s_patchout_f (int): Frequency patchout size.
         """
         super().__init__()
-        self.base_model = ASiTWrapper()
+        base_model = ASiTWrapper()
         self.model = PredictionsWrapper(
-            base_model=self.base_model,
+            base_model=base_model,
             checkpoint=checkpoint,
             rnn_layers=rnn_layers,
             n_classes_strong=n_classes_strong,
