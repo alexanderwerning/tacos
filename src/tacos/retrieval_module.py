@@ -8,7 +8,6 @@ import numpy as np
 import torch
 import pytorch_lightning as pl
 from transformers import RobertaTokenizer, RobertaModel
-from triton.language.semantic import reduction
 
 from tacos.models.sed import ASITSEDWrapper
 
@@ -38,6 +37,7 @@ class AudioRetrievalModel(pl.LightningModule):
             attention_probs_dropout_prob=0.2,
             output_hidden_states=False
         )
+        self.text_embedding_model = self.text_embedding_model.train()
         self.text_projection = torch.nn.Linear(768 if kwargs['roberta_base'] else 1024, 1024)
 
         # temperature parameter
